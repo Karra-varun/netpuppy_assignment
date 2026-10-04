@@ -1,4 +1,4 @@
-import { ArrowRight, Compass, Calendar, CheckSquare, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { admissionSteps, schoolInfo } from "../data/tisData";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 

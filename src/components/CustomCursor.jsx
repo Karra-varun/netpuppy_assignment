@@ -1,103 +1,64 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 /**
- * Interactive custom cursor with follower ring and hover states.
- * Automatically disabled on touch screens for seamless mobile UX.
+ * Custom interactive cursor:
+ * - A center dot following the exact mouse position
+ * - An outer ring trailing smoothly with CSS transition
+ * - Expands when hovering clickable elements
+ * - Automatically hidden on mobile and touchscreens
  */
 export default function CustomCursor() {
+  const [position, setPosition] = useState({ x: -100, y: -100 });
   const [isHovered, setIsHovered] = useState(false);
-  const [isClicked, setIsClicked] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
-  const [isTouch, setIsTouch] = useState(false);
-
-  const dotRef = useRef(null);
-  const ringRef = useRef(null);
-
-  // Position coordinates
-  const mousePos = useRef({ x: -100, y: -100 });
-  const ringPos = useRef({ x: -100, y: -100 });
-  const animFrameId = useRef(null);
+  
+  // Initialize touch detection directly in state to prevent cascading renders
+  const [isTouchDevice] = useState(() => {
+    return typeof window !== "undefined" && ("ontouchstart" in window || (navigator.maxTouchPoints && navigator.maxTouchPoints > 0));
+  });
 
   useEffect(() => {
-    // Check if device is touch-enabled
-    if (window.matchMedia("(pointer: coarse)").matches || "ontouchstart" in window) {
-      setIsTouch(true);
-      return;
-    }
+    if (isTouchDevice) return;
 
-    const onMouseMove = (e) => {
-      mousePos.current = { x: e.clientX, y: e.clientY };
-      if (!isVisible) setIsVisible(true);
-
-      if (dotRef.current) {
-        dotRef.current.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
-      }
+    // Track mouse coordinates
+    const handleMouseMove = (e) => {
+      setPosition({ x: e.clientX, y: e.clientY });
     };
 
-    const onMouseDown = () => setIsClicked(true);
-    const onMouseUp = () => setIsClicked(false);
-
-    const onMouseEnter = () => setIsVisible(true);
-    const onMouseLeave = () => setIsVisible(false);
-
-    // Track hoverable targets
+    // Check if hovering over clickable items
     const handleMouseOver = (e) => {
-      const target = e.target;
-      const isInteractive =
-        target.closest("a") ||
-        target.closest("button") ||
-        target.closest("input") ||
-        target.closest("select") ||
-        target.closest(".interactive") ||
-        target.closest("[role='button']");
-
-      setIsHovered(Boolean(isInteractive));
+      const interactive = e.target.closest("a, button, input, select, textarea, [role='button'], .clickable");
+      setIsHovered(Boolean(interactive));
     };
 
-    // Smooth lerp animation for the trailing ring
-    const renderLoop = () => {
-      ringPos.current.x += (mousePos.current.x - ringPos.current.x) * 0.18;
-      ringPos.current.y += (mousePos.current.y - ringPos.current.y) * 0.18;
-
-      if (ringRef.current) {
-        ringRef.current.style.transform = `translate3d(${ringPos.current.x}px, ${ringPos.current.y}px, 0)`;
-      }
-
-      animFrameId.current = requestAnimationFrame(renderLoop);
-    };
-
-    window.addEventListener("mousemove", onMouseMove);
-    window.addEventListener("mousedown", onMouseDown);
-    window.addEventListener("mouseup", onMouseUp);
-    document.addEventListener("mouseenter", onMouseEnter);
-    document.addEventListener("mouseleave", onMouseLeave);
+    window.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseover", handleMouseOver);
 
-    animFrameId.current = requestAnimationFrame(renderLoop);
-
     return () => {
-      window.removeEventListener("mousemove", onMouseMove);
-      window.removeEventListener("mousedown", onMouseDown);
-      window.removeEventListener("mouseup", onMouseUp);
-      document.removeEventListener("mouseenter", onMouseEnter);
-      document.removeEventListener("mouseleave", onMouseLeave);
+      window.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseover", handleMouseOver);
-      if (animFrameId.current) cancelAnimationFrame(animFrameId.current);
     };
-  }, [isVisible]);
+  }, [isTouchDevice]);
 
-  if (isTouch) return null;
+  // Do not render on touchscreens
+  if (isTouchDevice) return null;
 
   return (
     <>
+      {/* Center pinpoint cursor dot */}
       <div
-        ref={dotRef}
-        className={`custom-cursor-dot ${isVisible ? "visible" : ""} ${isClicked ? "clicked" : ""}`}
+        className="cursor-dot"
+        style={{
+          transform: `translate3d(${position.x}px, ${position.y}px, 0)`,
+        }}
         aria-hidden="true"
       />
+
+      {/* Smooth trailing outer ring */}
       <div
-        ref={ringRef}
-        className={`custom-cursor-ring ${isVisible ? "visible" : ""} ${isHovered ? "hovered" : ""} ${isClicked ? "clicked" : ""}`}
+        className={`cursor-ring ${isHovered ? "hovered" : ""}`}
+        style={{
+          transform: `translate3d(${position.x}px, ${position.y}px, 0)`,
+        }}
         aria-hidden="true"
       />
     </>

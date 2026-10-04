@@ -1,4 +1,4 @@
-import { Trees, ShieldAlert, HeartPulse, Sparkles, Utensils, Home, Microscope, BookOpen } from "lucide-react";
+import { Trees, HeartPulse, Sparkles, Utensils, Home, Microscope, BookOpen } from "lucide-react";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 
 export default function CampusBento({ onOpenEnquiry }) {

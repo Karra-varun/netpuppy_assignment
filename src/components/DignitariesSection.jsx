@@ -1,4 +1,4 @@
-import { Award, Quote, Sparkles } from "lucide-react";
+import { Award, Quote } from "lucide-react";
 import { dignitaries } from "../data/tisData";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 

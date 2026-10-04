@@ -1,4 +1,4 @@
-import { ArrowRight, Trophy, Users, Award, Play, Compass, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Trophy, Users, Compass, CheckCircle2 } from "lucide-react";
 import { schoolInfo, keyMetrics } from "../data/tisData";
 
 export default function Hero({ onOpenEnquiry }) {

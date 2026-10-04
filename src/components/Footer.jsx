@@ -1,8 +1,9 @@
-import { MapPin, Phone, Mail, ExternalLink, ShieldCheck, Heart } from "lucide-react";
+import { MapPin, Phone, Mail, ExternalLink, ShieldCheck } from "lucide-react";
 import { schoolInfo } from "../data/tisData";
 
+const CURRENT_YEAR = new Date().getFullYear();
+
 export default function Footer({ onOpenEnquiry }) {
-  const currentYear = new Date().getFullYear();
 
   return (
     <footer className="site-footer">
@@ -135,7 +136,7 @@ export default function Footer({ onOpenEnquiry }) {
       <div className="footer-bottom">
         <div className="container footer-bottom-inner">
           <p className="copyright-text">
-            © {currentYear} Tula's International School, Dehradun. All Rights Reserved.
+            © {CURRENT_YEAR} Tula's International School, Dehradun. All Rights Reserved.
           </p>
           <div className="footer-bottom-links">
             <span>Redesigned for Frontend Developer Evaluation</span>

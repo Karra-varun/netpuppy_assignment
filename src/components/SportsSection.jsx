@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Trophy, Compass, Check, ArrowRight, Shield } from "lucide-react";
+import { Trophy, Check, ArrowRight, Shield } from "lucide-react";
 import { sportsList } from "../data/tisData";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 

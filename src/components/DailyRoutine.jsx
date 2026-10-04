@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Clock, Sun, Moon, Sparkles, BookOpen, Coffee, Dumbbell, Star } from "lucide-react";
+import { Clock, Sparkles } from "lucide-react";
 import { dailyRoutine } from "../data/tisData";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 

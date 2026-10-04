@@ -17,7 +17,7 @@ import Footer from "./components/Footer";
 import QuickEnquiryModal from "./components/QuickEnquiryModal";
 
 export default function App() {
-  const { theme, toggleTheme, isDark } = useTheme();
+  const { toggleTheme, isDark } = useTheme();
   const [isEnquiryModalOpen, setIsEnquiryModalOpen] = useState(false);
 
   const handleOpenEnquiry = () => {

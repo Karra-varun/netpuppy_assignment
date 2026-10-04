@@ -6,17 +6,15 @@ import { useEffect, useRef, useState } from "react";
  */
 export function useScrollReveal(options = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" }) {
   const elementRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
+  
+  // Default to visible if IntersectionObserver is not supported
+  const [isVisible, setIsVisible] = useState(() => {
+    return typeof window !== "undefined" && !("IntersectionObserver" in window);
+  });
 
   useEffect(() => {
     const node = elementRef.current;
-    if (!node) return;
-
-    // Check if IntersectionObserver is supported
-    if (!("IntersectionObserver" in window)) {
-      setIsVisible(true);
-      return;
-    }
+    if (!node || !("IntersectionObserver" in window)) return;
 
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) {

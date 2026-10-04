@@ -1,4 +1,4 @@
-import { Award, Medal, Star, CheckCircle } from "lucide-react";
+import { Award, Medal, CheckCircle } from "lucide-react";
 import { rankingsData } from "../data/tisData";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 

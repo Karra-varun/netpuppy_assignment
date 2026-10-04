@@ -131,10 +131,10 @@ During the technical review, you can walk through the codebase with complete con
 ### Setup Steps:
 ```bash
 # 1. Clone the repository
-git clone https://github.com/Karra-varun/netpuppysAssignment_Tis.git
+git clone https://github.com/Karra-varun/netpuppy_assignment.git
 
 # 2. Navigate to project folder
-cd netpuppysAssignment_Tis
+cd netpuppy_assignment
 
 # 3. Install dependencies
 npm install
@@ -169,13 +169,13 @@ npm run preview
    git push origin main
    ```
 2. Go to [vercel.com](https://vercel.com/) and log in with GitHub.
-3. Click **"Add New Project"** and select `netpuppysAssignment_Tis`.
+3. Click **"Add New Project"** and select `netpuppy_assignment`.
 4. Framework Preset will auto-detect **Vite**.
 5. Click **"Deploy"**. Your live URL will be ready in under 60 seconds!
 
 ### Deploy to Netlify:
 1. Go to [netlify.com](https://netlify.com/) and click **"Add new site" -> "Import an existing project"**.
-2. Select GitHub and choose `netpuppysAssignment_Tis`.
+2. Select GitHub and choose `netpuppy_assignment`.
 3. Set Build Command: `npm run build` and Publish Directory: `dist`.
 4. Click **"Deploy site"**.
 
